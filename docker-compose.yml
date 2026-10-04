@@ -51,5 +51,6 @@ services:
       - /tmp
     tty: true
     volumes:
-      - /media/usb-drive-tsba/pi-app-data/qbit-data/config:/config
-      - /media/usb-drive-tsba/pi-app-data/qbit-data/downloads:/downloads
+      # path to location where qbittorrent config and downloadss are found
+      - /path/to/folder/where/qbittorrent/configs/are/available:/config
+      - /path/to/folder/where/qbittorrent/downloads:/downloads
