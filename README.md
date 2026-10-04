@@ -1,5 +1,5 @@
-# qbit-gluetun-proton docker compose
-qbit and gluetun docker using proton vpn
+# qbittorrent-gluetun-proton docker compose
+qbittorrent and gluetun docker using proton vpn
 
 to start  
 
