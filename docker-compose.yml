@@ -14,8 +14,11 @@ services:
       #- 8388:8388/udp # Shadowsocks
       - 6520:6520 #qbit web ui
     volumes:
-      - /media/usb-drive-tsba/pi-app-data/gluetun-data:/gluetun
-      - /media/usb-drive-tsba/pi-app-data/gluetun-data/wireguard/wg0.conf:/gluetun/wireguard/wg0.conf
+      # this the location where the config file are to be placed
+      - /path/to/folder/where/gluetun/configs/are/available:/gluetun
+      # in the same path as above, create a folder hooks and place the file qbit.sh
+      # in the same path as above, create a folder wireguard and place the proton vpn wireguard config file
+      - /path/to/folder/where/gluetun/configs/are/available/wireguard/wg0.conf:/gluetun/wireguard/wg0.conf
     environment:
       # See https://github.com/qdm12/gluetun-wiki/tree/main/setup#setup
       - HTTPPROXY=on
