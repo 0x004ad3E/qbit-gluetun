@@ -1,0 +1,52 @@
+services:
+  gluetun:
+    image: qmcgaw/gluetun
+    # container_name: gluetun
+    # line above must be uncommented to allow external containers to connect.
+    # See https://github.com/qdm12/gluetun-wiki/blob/main/setup/connect-a-container-to-gluetun.md#external-container-to-gluetun
+    cap_add:
+      - NET_ADMIN
+    devices:
+      - /dev/net/tun:/dev/net/tun
+    ports:
+      - 8888:8888/tcp # HTTP proxy
+      #- 8388:8388/tcp # Shadowsocks
+      #- 8388:8388/udp # Shadowsocks
+      - 6520:6520 #qbit web ui
+    volumes:
+      - /media/usb-drive-tsba/pi-app-data/gluetun-data:/gluetun
+      - /media/usb-drive-tsba/pi-app-data/gluetun-data/wireguard/wg0.conf:/gluetun/wireguard/wg0.conf
+    environment:
+      # See https://github.com/qdm12/gluetun-wiki/tree/main/setup#setup
+      - HTTPPROXY=on
+      - VPN_SERVICE_PROVIDER=custom
+      - VPN_TYPE=wireguard
+      - VPN_PORT_FORWARDING=on
+      - VPN_PORT_FORWARDING_PROVIDER=protonvpn
+      - VPN_PORT_FORWARDING_UP_COMMAND=/bin/sh -c "/gluetun/hooks/qbit.sh {{PORT}} {{VPN_INTERFACE}}"
+      - TZ=Europe/Berlin
+      - UPDATER_PERIOD=0
+  qbittorrent-nox:
+    # for debugging
+    #cap_add:
+      #- SYS_PTRACE
+    # additional arguments to `qbittorrent-nox`
+    #command:
+      #- --help
+    container_name: qbittorrent-nox
+    environment:
+      - QBT_LEGAL_NOTICE=confirm
+      - QBT_VERSION=latest
+      - QBT_WEBUI_PORT=6520
+      - TZ=Europe/Berlin
+    image: qbittorrentofficial/qbittorrent-nox:latest
+    restart: unless-stopped
+    network_mode: "service:gluetun"
+    read_only: false
+    stop_grace_period: 30m
+    tmpfs:
+      - /tmp
+    tty: true
+    volumes:
+      - /media/usb-drive-tsba/pi-app-data/qbit-data/config:/config
+      - /media/usb-drive-tsba/pi-app-data/qbit-data/downloads:/downloads
