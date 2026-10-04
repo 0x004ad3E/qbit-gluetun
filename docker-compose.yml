@@ -51,6 +51,6 @@ services:
       - /tmp
     tty: true
     volumes:
-      # path to location where qbittorrent config and downloadss are found
+      # path to location where qbittorrent config and downloads are found
       - /path/to/folder/where/qbittorrent/configs/are/available:/config
       - /path/to/folder/where/qbittorrent/downloads:/downloads
