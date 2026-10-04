@@ -10,7 +10,7 @@ qbittorrent and gluetun docker using proton vpn
 
 Note: 
 1. After qbittorrent starts, log in to the UI and generate API key and update in the qbit.sh
-2. Update qbittorrent to bind to tun0 or whatever name is generated for the vpn tunnel.(use the linux command "ip link show" to get the interface name) qbittorrent UI->Tools->Options->Advanced->Network Inferface
+2. Update qbittorrent to bind to tun0 or whatever name that is generated for the vpn tunnel. qbittorrent UI->Tools->Options->Advanced->Network Inferface
 
 to start  
 
